@@ -9,7 +9,7 @@
 	<?php 
 		$currentTime = date("g");
 		$ampm = date("a");
-		
+		$year = date("Y");
 		
 		echo $currentTime;
 		echo $ampm;
@@ -27,6 +27,17 @@
 			echo "<br>";
 			echo "good afternoon";
 		}
+
+		// Leap Year
+		
+		echo "<p>";
+        $leapYear = date('L', $year);
+
+        if ($leapYear == 0){
+            echo "This year is $year, therefore it is not a leap year.";
+        } elseif ($leapYear == 1) {
+             echo "This year is $year, therefore it is a leap year!";
+        }
 		
 	?>
 </body>

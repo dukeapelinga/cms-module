@@ -13,6 +13,7 @@
 		width: 600px;
 		background-color: pink;
 		text-align: center;
+		padding: 10px 20px 20px 20px;
 	}
 
 	input {
@@ -22,8 +23,24 @@
 
 	form {
 		display: none;
+		margin: 20px 0px 10px 0px;
 	}
 	
+	h3 {
+		padding: 20px 0px 10px 0px;
+	}
+
+	#actualShape {
+		width: 99%;
+		height: 540px;
+		margin-top: 10px;
+		display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    overflow: scroll;
+	    background-color: #C0C0C0;
+	}
+
 	</style>
 </head>
 <body>
@@ -42,20 +59,29 @@
 			$cA = 3.14 * $r * $r;
 			$cC = 2 * 3.14 * $r;
 
-			$result = "Given Radius: " . $r . "<br>Diameter: " . $d . "<br>Area: " . $cA . "<br>Circumference: " . $cC;
+			$result = "Given Radius: " . $r . "<br>Diameter: " . $d . " ( Radius x 2 )" . "<br>Area: " . $cA . " ( π x Radius x Radius )" . "<br>Circumference: " . $cC . " ( 2 x π x Radius )";
+
+			$shapeMaker = "<div style=\"border-radius:50%; width:{$d}px; height:{$d}px; background-color:#FF8040; border: 2px solid #40BFFF;\"></div>";
+
 		} else if ($cS === "square") {
 			$sA = $sM * $sM;
 			$sP = 4 * $sM;
 
-			$result = "Given Measurement: " . $sM . "<br>Area: " . $sA . "<br>Perimeter: " . $sP;
+			$result = "Given (1)Side Measurement: " . $sM . "<br>Area: " . $sA . " ( Measurement x Measurement )" . "<br>Perimeter: " . $sP . " ( 4 x Measurement )";
+
+			$shapeMaker = "<div style=\"width:{$sM}px; height:{$sM}px; background-color:#FF8040; border: 2px solid #40BFFF;\"></div>";
+
 		} else if ($cS === "rectangle") {
 			$rA = $rH * $rW;
 			$rP = 4 * $rA;
 
-			$result = "Given Height: " . $rH . "<br>Given Width: " . $rW . "<br>Area: " . $rA . "<br>Perimeter: " . $rP;
+			$result = "Given Height: " . $rH . "<br>Given Width: " . $rW . "" . "<br>Area: " . $rA . " ( Height x Width )" . "<br>Perimeter: " . $rP . " ( 4 x Area )";
+
+			$shapeMaker = "<div style=\"width:{$rW}px; height:{$rH}px; background-color:#FF8040; border: 2px solid #40BFFF;\"></div>";
 		}
 
 		$calculatedResults = $result;
+		$shapeProvider = $shapeMaker;
 
 	?>
 
@@ -81,14 +107,14 @@
 			<label>Enter Radius: </label>
 			<input type="text" name="radius" value="">
 			<input type="hidden" name="chosenShape" value="circle">
-			<button type="submit" onclick="">Submit</button>
+			<button type="submit">Submit</button>
 		</form>	
 
 		<form action="yoobeeCalculator.phtml" method="post" id="squareCalculator">
-			<label>Enter Side Measurement: </label>
+			<label>Enter (1)Side Measurement: </label>
 			<input type="text" name="sideM" value="">
 			<input type="hidden" name="chosenShape" value="square">
-			<button type="submit" onclick="">Submit</button>
+			<button type="submit">Submit</button>
 		</form>	
 
 		<form action="yoobeeCalculator.phtml" method="post" id="rectangleCalculator">
@@ -97,13 +123,18 @@
 			<label>Width: </label>
 			<input type="text" name="recWidth" value="">
 			<input type="hidden" name="chosenShape" value="rectangle">
-			<button type="submit" onclick="">Submit</button>
+			<button type="submit">Submit</button>
 		</form>
 
 		<br>
 
 		<div id="results">
+			<h3>Properties:</h3>
 			<?php echo $calculatedResults ?>
+		</div>
+
+		<div id="actualShape">
+			<?php echo $shapeProvider; ?>
 		</div>
 				
 	</div>
