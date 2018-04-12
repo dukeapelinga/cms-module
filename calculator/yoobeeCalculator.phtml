@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	* {
+		margin: 0 auto;
+		padding: 0;
+	}
+
+	#wrapper {
+		width: 600px;
+		background-color: pink;
+		text-align: center;
+	}
+
+	input {
+		margin-right: 10px;
+		margin-left: 10px;
+	}
+
+	form {
+		display: none;
+	}
+	
+	</style>
+</head>
+<body>
+	<!-- ___________ PHP _____________ -->
+
+	<?php 
+
+		$cS = $_POST["chosenShape"];
+		$r = $_POST["radius"];
+		$sM = $_POST["sideM"];
+		$rH = $_POST["recHeight"];
+		$rW = $_POST["recWidth"];
+		
+		if ($cS === "circle") {
+			$d = 2 * $r;
+			$cA = 3.14 * $r * $r;
+			$cC = 2 * 3.14 * $r;
+
+			$result = "Given Radius: " . $r . "<br>Diameter: " . $d . "<br>Area: " . $cA . "<br>Circumference: " . $cC;
+		} else if ($cS === "square") {
+			$sA = $sM * $sM;
+			$sP = 4 * $sM;
+
+			$result = "Given Measurement: " . $sM . "<br>Area: " . $sA . "<br>Perimeter: " . $sP;
+		} else if ($cS === "rectangle") {
+			$rA = $rH * $rW;
+			$rP = 4 * $rA;
+
+			$result = "Given Height: " . $rH . "<br>Given Width: " . $rW . "<br>Area: " . $rA . "<br>Perimeter: " . $rP;
+		}
+
+		$calculatedResults = $result;
+
+	?>
+
+	<!-- ____________ HTML ___________ -->
+
+	<div id="wrapper">
+		
+		<h1>YOOBEE CALCULATOR</h1>
+		
+		<?php include("calculator.php") ?>
+
+		<p>Please choose the shape for which you want to calculate properties:</p>
+		
+		<input type="hidden" name="shape" value="" checked>
+		<input type="radio" name="shape" value="circle" id="circle" onchange="shapeType(this.value)"> 
+		<label for="cirlce">Circle</label>
+		<input type="radio" name="shape" value="square" id="square" onchange="shapeType(this.value)">
+		<label for="square">Square</label> 
+		<input type="radio" name="shape" value="rectangle" id="rectangle" onchange="shapeType(this.value)"> 
+		<label for="rectangle">Rectangle</label>
+		
+		<form action="yoobeeCalculator.phtml" method="post" id="circleCalculator">
+			<label>Enter Radius: </label>
+			<input type="text" name="radius" value="">
+			<input type="hidden" name="chosenShape" value="circle">
+			<button type="submit" onclick="">Submit</button>
+		</form>	
+
+		<form action="yoobeeCalculator.phtml" method="post" id="squareCalculator">
+			<label>Enter Side Measurement: </label>
+			<input type="text" name="sideM" value="">
+			<input type="hidden" name="chosenShape" value="square">
+			<button type="submit" onclick="">Submit</button>
+		</form>	
+
+		<form action="yoobeeCalculator.phtml" method="post" id="rectangleCalculator">
+			<label>Enter Height: </label>
+			<input type="text" name="recHeight" value="">
+			<label>Width: </label>
+			<input type="text" name="recWidth" value="">
+			<input type="hidden" name="chosenShape" value="rectangle">
+			<button type="submit" onclick="">Submit</button>
+		</form>
+
+		<br>
+
+		<div id="results">
+			<?php echo $calculatedResults ?>
+		</div>
+				
+	</div>
+
+	<script src="custom.js"></script>
+</body>
+</html>
