@@ -1,4 +1,5 @@
 <?php
+
 $dsn="mysql:dbname=supermarket";
 $username="root";
 $password="root";
@@ -9,10 +10,11 @@ try {
 	} catch (PDOException $e) {
 	    echo "connection failed:" . $e->getMessage();
 	}
-	$sql="SELECT * FROM items";
+	$sql="SELECT ID, Name, Price FROM items WHERE ID < 3";
 	echo "<ul>";
 	try {
         $rows=$conn->query($sql);
+        // print_r($rows);
         foreach ($rows as $row) {
         echo "<li>" . $row["Name"] . " is for: $" . $row["Price"] . ".</li>";
 	}
